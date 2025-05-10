@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>XploreUP</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    
+</head>
+  
+<body>
+    <header class="hero">
+        <nav class="navbar" id="navbar">
+            <div class="navbar-container">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="XploreUP" class="logo-img">
+                </div>
+                <div class="menu-container">
+                    <i class="fas fa-bars menu-icon" id="menu-toggle"></i>
+                </div>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/comida">Comida</a></li>
+                    <li><a href="/super">Súper</a></li>
+                    <li><a href="/banco">Banco</a></li>
+                    <li><a href="/salud">Salud</a></li>
+                    <li><a href="/papeleria">Papelería</a></li>
+                </ul>
+                
+                <div class="extra-space"></div> <!-- Para balancear -->
+            </div>
+        </nav>
+    
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Encuentra todo lo que necesitas cerca de la UP</h1>
+            </div>
+            <a href="#" class="hero-button">
+                <i class="fas fa-search"></i> <span id="boton-texto">Comida</span>
+              </a>
+        </div>
+    
+        <div class="slider">
+            <img src="{{ url_for('static', filename='images/img1.jpg') }}" class="active">
+            <img src="{{ url_for('static', filename='images/img2.jpg') }}">
+            <img src="{{ url_for('static', filename='images/img3.jpg') }}">
+            <img src="{{ url_for('static', filename='images/img4.jpg') }}">
+        </div>
+    </header>
+   
+
+    <div class="titulo-seccion">
+        <h1>Establecimientos Cercanos</h1>
+    </div>
+    
+    <div class="contenedor-cards">
+        {% for servicio in servicios %}
+            <div class="card">
+                <h2>{{servicio['nombre']}}</h2>
+                
+                <div class="rating">
+                    {% for i in range(1, 6) %}
+                        {% if i <= servicio['rating']|round(0, 'floor') %}
+                            {% if servicio['rating'] >= 4 %}
+                                <i class="fa-solid fa-star estrella-verde"></i>
+                            {% elif servicio['rating'] >= 2 %}
+                                <i class="fa-solid fa-star estrella-amarilla"></i>
+                            {% else %}
+                                <i class="fa-solid fa-star estrella-roja"></i>
+                            {% endif %}
+                        {% else %}
+                            <i class="fa-regular fa-star estrella-gris"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <p>{{ servicio['precio'] }} · {{ servicio['categoria'] }}</p>
+                <img src="{{ servicio['imagen_url'] }}" alt="{{ servicio['nombre'] }}" width="300">
+                <div class="boton-container">
+                    <a href="{{ servicio['maps_url'] }}" target="_blank" class="boton">Cómo llegar</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="encuesta-container">
+        <button id="close-survey" class="close-btn">X</button>
+        <button id="minimize-survey" class="minimize-btn">–</button>
+        <button id="expand-survey" class="expand-btn">+</button>
+        <div id="survey-text" class="survey-text-minimized">Encuesta de satisfacción</div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdNZcrIXwE9OdGHm0-Oqv49QhXqNpCyzfbNbDq8pgZtfMj8Nw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+    <script type="text/javascript">
+        const palabras = ["Comida", "Salud", "Papelerías", "Supermercados", "Bancos"];
+        let index = 0;
+        const textoElemento = document.getElementById("boton-texto");
+      
+        setInterval(() => {
+          textoElemento.style.opacity = 0;
+      
+          setTimeout(() => {
+           
+            index = (index + 1) % palabras.length;
+            textoElemento.textContent = palabras[index];
+      
+            // 3. Hacer fade in
+            textoElemento.style.opacity = 1;
+          }, 300); 
+        }, 2500); 
+    </script>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('navLinks');
+    
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>
+    <script>
+
+        document.getElementById("minimize-survey").addEventListener("click", function() {
+            document.querySelector(".encuesta-container").style.height = "50px";  // Ajustar el tamaño al mínimo
+            document.querySelector(".encuesta-container iframe").style.display = "none";  // Ocultar iframe
+            document.getElementById("expand-survey").style.display = "block";  // Mostrar el botón de expandir
+            document.getElementById("minimize-survey").style.display = "none";  // Ocultar el botón de minimizar
+            document.querySelector(".encuesta-container").classList.add("minimized");
+        });
+
+        // Expandir la encuesta
+        document.getElementById("expand-survey").addEventListener("click", function() {
+            document.querySelector(".encuesta-container").style.height = "500px";  // Volver al tamaño original
+            document.querySelector(".encuesta-container iframe").style.display = "block";  // Mostrar iframe
+            document.getElementById("expand-survey").style.display = "none";  // Ocultar el botón de expandir
+            document.getElementById("minimize-survey").style.display = "block";  // Mostrar el botón de minimizar
+            document.querySelector(".encuesta-container").classList.remove("minimized");
+        });
+
+        // Cerrar la encuesta
+        document.getElementById("close-survey").addEventListener("click", function() {
+            document.querySelector(".encuesta-container").style.display = "none";  // Ocultar todo el contenedor
+        });
+    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo XploreUP" class="footer-logo">
+            <img src="{{ url_for('static', filename='images/up.png') }}" alt="Logo UP" class="footer-logo">
+        </div>
+    </footer>
+</body>
+</html>
