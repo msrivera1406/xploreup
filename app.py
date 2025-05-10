@@ -1,4 +1,3 @@
-from flask import Flask, render_template, send_from_directory
 from flask import Flask, render_template, send_from_directory, Response
 import sqlite3
 
@@ -76,7 +75,6 @@ def salud():
 
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory('.', 'sitemap.xml')
     with open('sitemap.xml') as f:
         sitemap_content = f.read()
     return Response(sitemap_content, mimetype='application/xml')
