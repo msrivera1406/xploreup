@@ -417,6 +417,12 @@ h1 {
     display: block;  /* Mostrar texto cuando se minimiza */
     opacity: 1;
 }
+.footer-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.7rem;
+    color: #b79257;
+}
 
 
 @media (max-width: 768px) {
