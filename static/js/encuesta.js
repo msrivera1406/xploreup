@@ -24,7 +24,7 @@ document.querySelectorAll(".establecimiento-boton, .boton").forEach(boton => {
 
 // Habilitar la encuesta cuando se hayan visitado los 3 establecimientos
 function habilitarEncuesta() {
-    if (establecimientosVisitados >= 3) {
+    if (establecimientosVisitados >= 1) {
         document.querySelector('.expand-btn').style.display = 'block'; // Mostrar el botón de expandir
         document.querySelector('.encuesta-container').classList.remove('minimized'); // Mostrar la encuesta
         document.querySelector('.encuesta-container').style.display = 'block';
