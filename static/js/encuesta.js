@@ -3,8 +3,8 @@ let establecimientosVisitados = parseInt(localStorage.getItem('establecimientosV
 
 // Función para actualizar el texto de la encuesta
 function actualizarTextoDeEncuesta() {
-    const faltantes = 3 - establecimientosVisitados;  // Cambia 3 por el número necesario
-    const texto = `¡Te falta visitar ${faltantes} establecimiento(s) para acceder a la encuesta y a la rifa!`;
+    const faltantes = 1 - establecimientosVisitados;  // Cambia 3 por el número necesario
+    const texto = `¡Visita ${faltantes} establecimiento para acceder a la encuesta y a la rifa!`;
     document.getElementById("survey-text").textContent = texto;
 }
 
