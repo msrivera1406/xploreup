@@ -13,7 +13,7 @@ document.querySelectorAll(".establecimiento-boton, .boton").forEach(boton => {
     boton.addEventListener("click", () => {
         console.log("¡Botón 'Cómo llegar' clickeado!"); // Imprime un mensaje en consola cuando el botón es clickeado
         
-        if (establecimientosVisitados < 3) {
+        if (establecimientosVisitados < 1) {
             establecimientosVisitados++;
             localStorage.setItem('establecimientosVisitados', establecimientosVisitados);
             actualizarTextoDeEncuesta();
