@@ -94,7 +94,7 @@
             </div>
         {% endfor %}
     </div>
-    <div class="encuesta-container">
+    <!-- <div class="encuesta-container">
         <button id="minimize-survey" class="minimize-btn">–</button>
         <button id="expand-survey" class="expand-btn" style="display: none;">+</button>
         <button id="close-survey" class="close-btn">X</button>
@@ -104,9 +104,9 @@
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdNZcrIXwE9OdGHm0-Oqv49QhXqNpCyzfbNbDq8pgZtfMj8Nw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
     </div>
     <script src="{{ url_for('static', filename='js/encuesta.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/slider.js') }}"></script> -->
     
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         const palabras = ["Comida", "Salud", "Papelerías", "Supermercados", "Bancos"];
         let index = 0;
         const textoElemento = document.getElementById("boton-texto");
@@ -131,8 +131,8 @@
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('show');
         });
-    </script>
-    <script>
+    </script> -->
+    <!-- <script>
 
         document.getElementById("minimize-survey").addEventListener("click", function() {
             document.querySelector(".encuesta-container").style.height = "50px";  // Ajustar el tamaño al mínimo
@@ -155,7 +155,7 @@
         document.getElementById("close-survey").addEventListener("click", function() {
             document.querySelector(".encuesta-container").style.display = "none";  // Ocultar todo el contenedor
         });
-    </script>
+    </script> -->
     <footer class="footer">
         <div class="footer-content">
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo XploreUP" class="footer-logo">
